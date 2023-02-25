@@ -1,23 +1,20 @@
 <template>
   <div class="h-full w-screen min-h-screen overflow-hidden">
-    <!-- <p>
-      {{ data }}
-    </p> -->
-    <div 
-      class="w-full h-full flex flex-row space-x-12"
-      v-for="{ Title, Content, Image } in data.articles.data.attributes"
-      :key="data.articles.data.id"
+    <div
+      v-for="(article, index) in data?.articles?.data"
+      :key="index"
+      class="flex flex-row w-5/6 mx-auto space-between space-x-8"
     >
-      <div class="flex flex-col items-start space-y-4 w-1/2">
+      <div class="flex flex-col items-start space-y-4 grow">
         <h1 class="text-xl font-semibold">
-          {{ Title }}
+          {{ article.attributes.Title }}
         </h1>
-        <p class="text-base">
-          {{ Content }}
+        <p class="text-base whitespace-pre-line">
+          {{ article.attributes.Content }}
         </p>
       </div>
-      <div class="w-1/2">
-        <nuxt-img :src="'http://localhost:1337'+Image.data.attributes.url" class="object-cover" />
+      <div class="grow">
+        <nuxt-img :src="'http://localhost:1337'+article.attributes.Image.data.attributes.url" class="object-cover" />
       </div>
     </div>
   </div>
@@ -65,11 +62,7 @@ const query = gql`
   }
 `
 
-
-const { data, error, refresh } : any = await useAsyncQuery<Articles>(query)
-
-
-
+const { data, error, refresh } = await useAsyncQuery<Articles>(query)
 
 </script>
 
