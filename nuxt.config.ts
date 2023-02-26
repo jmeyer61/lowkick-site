@@ -4,8 +4,16 @@ export default defineNuxtConfig({
   build: {
 
   },
-  env: {
-    strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
+  plugins: [
+    '~/plugins/fontawesome.js'
+  ],
+  runtimeConfig: {
+    public: {
+      strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+    }
   },
   modules: [
     '@nuxtjs/tailwindcss',

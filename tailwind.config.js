@@ -16,19 +16,16 @@ module.exports = {
   ],
   daisyui: {
     styled: true,
-    // themes: [
-    //   {
-    //     main: {
-    //       primary: '',
-    //       secondary: '',
-    //       accent: '',
-    //       neutral: '',
-    //       "base-100": '',
-    //       warning: '',
-    //       error: '',
-    //     },
-    //   },
-    // ],
+    themes: [
+      {
+        main: {
+          primary: '#16142e',
+          secondary: '#156ba8',
+          accent: '#201e3b',
+          error: '#ed1c24',
+        },
+      },
+    ],
     base: true,
     utils: true,
     logs: true,

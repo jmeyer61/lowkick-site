@@ -1,6 +1,6 @@
 <template>
-  <div class="h-full w-screen min-h-screen overflow-hidden">
-    <div
+  <div class="h-full w-screen min-h-screen overflow-hidden bg-primary">
+    <!-- <div
       v-for="(article, index) in data?.articles?.data"
       :key="index"
       class="flex flex-row w-5/6 mx-auto space-between space-x-8"
@@ -14,14 +14,15 @@
         </p>
       </div>
       <div class="grow">
-        <nuxt-img :src="'http://localhost:1337'+article.attributes.Image.data.attributes.url" class="object-cover" />
+        <nuxt-img :src="config.strapiBaseUri+article.attributes.Image.data.attributes.url" class="object-cover" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-
+const config = useRuntimeConfig();
+const strapiBaseUri = config.strapiBaseUri;
 type Articles = {
   articles: {
     data: {
