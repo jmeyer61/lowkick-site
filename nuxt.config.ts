@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     '@fortawesome/fontawesome-svg-core/styles.css'
   ],
   plugins: [
-    '~/plugins/fontawesome.js'
+    '~/plugins/fontawesome.js',
   ],
   runtimeConfig: {
     public: {
