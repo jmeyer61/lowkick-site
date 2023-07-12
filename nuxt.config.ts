@@ -12,26 +12,26 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+      strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337"
     }
   },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/apollo',
     '@nuxt/image-edge',
+    '@nuxtjs/strapi',
   ],
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    prefix: '/api',
+    version: 'v4',
+    cookie: {},
+    cookieName: 'strapi_jwt'
+  },
   buildModules: [
 
   ],
   image: {
 
-  },
-  apollo: {
-    clients: {
-      default: {
-        httpEndpoint: process.env.BACKEND_URL || "http://localhost:1337/graphql"
-      }
-    },
   },
   head: {
     css: [

@@ -1,5 +1,16 @@
 <template>
   <div
+    class="absolute flex flex-row justify-between items-center z-10 bg-accent h-fit py-4 px-8 w-full text-white font-bold drop-shadow-lg"
+  >
+    <NuxtLink to="/">
+        <nuxt-img :src="logoUrl" width="50" height="50" class="fill-white" />
+    </NuxtLink>
+    <button class="hover:cursor-pointer" @click="menuOpen = !menuOpen">
+      <!-- <font-awesome-icon icon="fa-solid fa-bars" class="text-secondary text-lg" /> -->
+    </button>
+  </div>
+
+  <!-- <div
     class="fixed w-3/4 h-screen z-20 bg-accent transition-all duration-[350ms] ease-in-out rounded-tr-xl"
     :class="{
       '-translate-x-full': !menuOpen,
@@ -25,69 +36,28 @@
         </NuxtLink>
       </li>
     </ul>
-  </div>
-  <div
-    class="absolute flex flex-row justify-between items-center z-10 bg-accent h-fit py-2 mt-5 px-8 w-full text-white font-bold drop-shadow-lg"
-  >
-    <button class="hover:cursor-pointer" @click="menuOpen = !menuOpen">
-      <font-awesome-icon icon="fa-solid fa-bars" class="text-secondary" />
-    </button>
-    <NuxtLink to="/">
-      <nuxt-img :src="url" width="50" height="50" class="fill-white" />
-    </NuxtLink>
-    <button class="hover:cursor-pointer">
-      <font-awesome-icon
-        icon="fa-solid fa-magnifying-glass"
-        class="text-secondary"
-      />
-    </button>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
+import { Strapi4RequestParams } from '@nuxtjs/strapi/dist/runtime/types';
+import type { Logo } from '~/types'
 const config = useRuntimeConfig();
-const strapiBaseUri = config.strapiBaseUri;
 const menuOpen = ref(false);
+const strapiBaseUri = config.strapiBaseUri;
 
-type Logo = {
-  fullQualityLogo: {
-    data: {
-      attributes: {
-        Logo: {
-          data: {
-            attributes: {
-              url: String;
-            };
-          };
-        };
-      };
-    };
-  };
-};
+const { findOne } = useStrapi()
+const params : Strapi4RequestParams = {
+  populate: 'Image'
+}
 
-const query = gql`
-  query {
-    fullQualityLogo {
-      data {
-        attributes {
-          Logo {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+const logo = 
+  await findOne<Logo>('logo', params)
+    .catch((error) => {
+      console.log(error)
+    })
 
-const { data, error, refresh } = await useAsyncQuery<Logo>(query);
-const url = ref(
-  strapiBaseUri +
-    data.value?.fullQualityLogo.data.attributes.Logo.data.attributes.url
-);
+const logoUrl = ref(strapiBaseUri + logo?.data.attributes?.Image?.data.attributes?.url)
 
 const links = ref([
     {

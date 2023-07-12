@@ -23,47 +23,7 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
 const strapiBaseUri = config.strapiBaseUri;
-type Articles = {
-  articles: {
-    data: {
-      id: number,
-      attributes: {
-        Title: string,
-        Content: string,
-        Image: {
-          data: {
-            attributes: {
-              url: String
-            }
-          }
-        }
-      }
-    }[]
-  }
-}
 
-const query = gql`
-  query allArticles {
-    articles {
-      data {
-        id
-        attributes {
-          Title
-          Content
-          Image {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-const { data, error, refresh } = await useAsyncQuery<Articles>(query)
 
 </script>
 
